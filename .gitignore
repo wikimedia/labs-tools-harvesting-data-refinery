@@ -1,0 +1,5 @@
+src/config.yaml
+reload
+venv
+*.pyc
+.vscode

@@ -1,0 +1,8 @@
+flask
+pyyaml
+mwoauth
+requests
+simplejson
+flask-mwoauth
+mwparserfromhell
+toolforge

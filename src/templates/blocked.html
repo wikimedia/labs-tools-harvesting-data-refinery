@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<div class="container">
+	<h1>Your user account has been blocked</h1>
+	<h4>Summary of your block</h4>
+	<ul>
+		<li>Blocking sysop: <span id="sysop"></span></li>
+		<li>Reason of block: <span id="reason"></span></li>
+		<li>Block will expiry: <span id="expiry"></span></li>
+	</ul>
+	<script type="text/javascript">
+		$.getJSON('api-blocked', function (data) {
+			$('#sysop').text(data['blockdata']['blockedby']);
+			$('#reason').text(data['blockdata']['blockreason']);
+			$('#expiry').text(data['blockdata']['blockexpiry']);
+		});
+	</script>
+</div>
+{% endblock %}
