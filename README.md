@@ -1,6 +1,6 @@
-# harvesting-data-rafinery
+# harvesting-data-refinery
 
-**Harvesting data rafinery** is a tool which can help you to check data you imported to [Wikidata](https://wikidata.org). Its live version is running at https://tools.wmflabs.org/harvesting-data-rafinery/. 
+**Harvesting data refinery** is a tool which can help you to check data you imported to [Wikidata](https://wikidata.org). Its live version is running at https://tools.wmflabs.org/harvesting-data-refinery/. 
 
 ## Requirements
 
