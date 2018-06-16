@@ -66,11 +66,9 @@ def index():
 	else:
 		return flask.render_template('login.html', logged=logged(), username=getusername())
 
-@app.route('/api-recentclaims')
-def recentclaims():
-	user = request.args.get('user')
-	prop = "%%%s%%" % request.args.get('property')
-	limit = int(request.args.get('limit'))
+def recentclaims(user, prop_name, limit):
+	prop = "%%%s%%" % prop_name
+	limit = int(limit)
 	conn = toolforge.connect('wikidatawiki')
 	with conn.cursor() as cur:
 		sql = '''
@@ -100,7 +98,7 @@ def recentclaims():
 			"property": request.args.get('property'),
 			"value": value
 		})
-	return jsonify(result)
+	return result
 
 def logged():
 	return flask.session.get('username') != None
