@@ -65,6 +65,31 @@ def index():
 	else:
 		return flask.render_template('login.html', logged=logged(), username=getusername())
 
+@app.route('/api-recentclaims')
+def recentclaims():
+	user = request.args.get('user')
+	prop = request.args.get('property')
+	limit = request.args.get('limit')
+	conn = toolforge.connect('wikidatawiki')
+	with conn.cursor() as cur:
+		sql = '''
+		select rev_page, page_title, rev_comment
+		from revision_userindex
+		join page on page_id=rev_page
+		'''
+		if user:
+			sql += '''
+			where rev_user_text=%s
+			and rev_comment like "%claim-%" and rev_comment like "%%s%" order by rev_timestamp desc limit %s;
+			'''
+			parameters = (user, prop, limit)
+		else:
+			sql += 'where rev_comment like "%claim-%" and rev_comment like "%P18%" order by rev_timestamp desc limit %s;'
+			parameters = (prop, limit)
+		cur.execute(sql, parameters)
+		data = cur.fetchall()
+	return jsonify(data)
+
 def logged():
 	return flask.session.get('username') != None
 
