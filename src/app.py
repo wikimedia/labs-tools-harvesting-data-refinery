@@ -116,7 +116,10 @@ def toreview():
 	result = recentclaims(user, prop, limit)
 	for i in range(len(result)):
 		if prop == "P18":
-			hashed_name = hashlib.md5(result[i]["value"].replace(' ', '_').encode('utf-8')).hexdigest()
+			result[i].update({
+				"value": result[i]['value'].replace(' ', '_')
+			})
+			hashed_name = hashlib.md5(result[i]["value"].encode('utf-8')).hexdigest()
 			full_url = "https://upload.wikimedia.org/wikipedia/commons/%s/%s/%s" % (hashed_name[0], hashed_name[:2], result[i]["value"])
 			thumb_url = "https://upload.wikimedia.org/wikipedia/commons/thumb/%s/%s/%s/100px-%s.png" % (hashed_name[0], hashed_name[:2], result[i]["value"], result[i]["value"])
 			result[i].update({
