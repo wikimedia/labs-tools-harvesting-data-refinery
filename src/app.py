@@ -68,7 +68,7 @@ def index():
 @app.route('/api-recentclaims')
 def recentclaims():
 	user = request.args.get('user')
-	prop = request.args.get('property')
+	prop = "%%%s%%" % request.args.get('property')
 	limit = int(request.args.get('limit'))
 	conn = toolforge.connect('wikidatawiki')
 	with conn.cursor() as cur:
@@ -80,11 +80,11 @@ def recentclaims():
 		if user:
 			sql += '''
 			where rev_user_text=%s
-			and rev_comment like "%%claim-%%" and rev_comment like "%%%s%%" order by rev_timestamp desc limit %s;
+			and rev_comment like "%%claim-%%" and rev_comment like %s order by rev_timestamp desc limit %s;
 			'''
 			parameters = (user, prop, limit)
 		else:
-			sql += 'where rev_comment like "%%claim-%%" and rev_comment like "%%s%%" order by rev_timestamp desc limit %s;'
+			sql += 'where rev_comment like "%%claim-%%" and rev_comment like %s order by rev_timestamp desc limit %s;'
 			parameters = (prop, limit)
 		cur.execute(sql, parameters)
 		data = cur.fetchall()
