@@ -25,6 +25,7 @@ import mwparserfromhell
 from requests_oauthlib import OAuth1
 import toolforge
 import re
+import hashlib
 
 
 app = flask.Flask(__name__)
@@ -99,6 +100,34 @@ def recentclaims(user, prop_name, limit):
 			"value": value
 		})
 	return result
+
+@app.route('/api-to-review')
+def toreview():
+	user = request.args.get('user')
+	prop = request.args.get('prop')
+	limit = request.args.get('limit', 10)
+
+	if not user or not prop:
+		return make_response(jsonify({
+			"status": "error",
+			"error": "mustpassparams"
+		}), 400)
+
+	result = recentclaims(user, prop, limit)
+	for i in range(len(result)):
+		if prop == "P18":
+			hashed_name = hashlib.md5(result[i]["value"]).hexdigest()
+			full_url = "https://upload.wikimedia.org/wikipedia/commons/%s/%s/%s" % (hashed_name[0], hashed_name[:2], result[i]["value"])
+			thumb_url = "https://upload.wikimedia.org/wikipedia/commons/thumb/%s/%s/%s/100px-%s.png" % (hashed_name[0], hashed_name[:2], result[i]["value"], result[i]["value"])
+			result[i].update({
+				"html": '<img src="%s" alt="Image added to Wikidata" />' % thumb_url
+			})
+		else:
+			return make_response(jsonify({
+				"status": "error",
+				"error": "notimplemented"
+			}), 400)
+	return jsonify(result)
 
 def logged():
 	return flask.session.get('username') != None
