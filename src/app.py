@@ -31,7 +31,7 @@ import hashlib
 app = flask.Flask(__name__)
 application = app
 
-requests.utils.default_user_agent = lambda: "Harvesting data rafinery (https://tools.wmflabs.org/harvesting-data-rafinery; martin.urbanec@wikimedia.cz)"
+requests.utils.default_user_agent = lambda: "Harvesting data refinery (https://tools.wmflabs.org/harvesting-data-rafinery; martin.urbanec@wikimedia.cz)"
 
 # Load configuration from YAML file
 __dir__ = os.path.dirname(__file__)
