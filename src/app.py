@@ -104,7 +104,7 @@ def recentclaims(user, prop_name, limit):
 @app.route('/api-to-review')
 def toreview():
 	user = request.args.get('user')
-	prop = request.args.get('prop')
+	prop = request.args.get('property')
 	limit = request.args.get('limit', 10)
 
 	if not user or not prop:
