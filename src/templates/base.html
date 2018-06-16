@@ -17,10 +17,7 @@
 		<script src="{{config.STATIC_URL}}sweetalert.min.js"></script>
 
 		<!-- My JS -->
-		{% if logged %}
-		<script src="{{config.STATIC_URL}}all.js" charset="utf-8"></script>
-		{% endif %}
-	  {% block head %}{% endblock %}
+	    {% block head %}{% endblock %}
 	</head>
 	<body>
 				{% if logged %}
