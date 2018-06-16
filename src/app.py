@@ -92,7 +92,7 @@ def recentclaims():
 	result = []
 	for row in data:
 		regex = r"Property:P18\]\]: (.*)$"
-		value = re.match(regex, row[3]).groups()[0]
+		value = re.search(regex, row[3].decode('utf-8')).groups()[0]
 		result.append({
 			"page_id": row[0],
 			"qid": row[1],
