@@ -107,7 +107,7 @@ def toreview():
 	prop = request.args.get('property')
 	limit = request.args.get('limit', 10)
 
-	if not user or not prop:
+	if not prop:
 		return make_response(jsonify({
 			"status": "error",
 			"error": "mustpassparams"
