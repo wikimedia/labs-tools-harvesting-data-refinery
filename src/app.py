@@ -24,6 +24,7 @@ import mwoauth
 import mwparserfromhell
 from requests_oauthlib import OAuth1
 import toolforge
+import re
 
 
 app = flask.Flask(__name__)
@@ -73,7 +74,7 @@ def recentclaims():
 	conn = toolforge.connect('wikidatawiki')
 	with conn.cursor() as cur:
 		sql = '''
-		select rev_page, page_title, rev_comment
+		select rev_page, page_title, rev_id, rev_comment
 		from revision_userindex
 		join page on page_id=rev_page
 		'''
@@ -88,7 +89,18 @@ def recentclaims():
 			parameters = (prop, limit)
 		cur.execute(sql, parameters)
 		data = cur.fetchall()
-	return jsonify(data)
+	result = []
+	for row in data:
+		regex = r"Property:P18\]\]: (.*)$"
+		value = re.match(regex, row[3]).groups()[0]
+		result.append({
+			"page_id": row[0],
+			"qid": row[1],
+			"rev_id": row[2],
+			"property": request.args.get('property'),
+			"value": value
+		})
+	return jsonify(result)
 
 def logged():
 	return flask.session.get('username') != None
