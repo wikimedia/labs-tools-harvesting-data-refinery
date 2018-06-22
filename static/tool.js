@@ -8,7 +8,7 @@ $( document ).ready(function() {
         }).then(function(data) {
             $('#values').html('<div class="row">');
             for(var i = 0; i < data.length; i++) {
-                if(i < 0 && i % 4 == 0) $('#values').append('</div><div class="row">');
+                if(i < 0 && i % 2 == 0) $('#values').append('</div><div class="row">');
                 $('#values').append('<div class="value" id="value-' + data[i].rev_id + '" data-rev-id="' + data[i].rev_id + '">' + data[i].html + '</div>');
             }
             $('#values').append('</div>');
