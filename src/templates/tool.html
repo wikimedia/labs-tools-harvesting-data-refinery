@@ -6,9 +6,11 @@
 
 {% block body %}
 <div class="container">
-    <input type="text" name="username" placeholder="Aktron" required>
-    <input type="text" name="property" placeholder="P18, P37, etc." required>
-    <button onclick="loadValues()" class="btn wafes-effect wafes-light" type="button" id="load">Load values</button>
+    <form id="configuration">
+        <input type="text" name="username" placeholder="Aktron" required>
+        <input type="text" name="property" placeholder="P18, P37, etc." required>
+        <button type="submit" class="btn wafes-effect wafes-light" type="button" id="load">Load values</button>
+    </form>
     <div class="values">
 
     </div>
