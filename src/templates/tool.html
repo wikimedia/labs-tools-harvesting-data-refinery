@@ -7,8 +7,8 @@
 {% block body %}
 <div class="container">
     <form id="configuration">
-        <input type="text" name="username" placeholder="Aktron" required>
-        <input type="text" name="property" placeholder="P18, P37, etc." required>
+        <input type="text" name="username" value="{{user}}" placeholder="Aktron" required>
+        <input type="text" name="property" value="{{property}}" placeholder="P18, P37, etc." required>
         <button type="submit" class="btn wafes-effect wafes-light" type="button" id="load">Load values</button>
     </form>
     <div id="values">
