@@ -56,7 +56,7 @@ def index():
 		if blocked()['blockstatus']:
 			return flask.render_template('blocked.html', logged=logged(), username=getusername())
 		else:
-			return flask.render_template('tool.html', logged=logged(), username=getusername(), user=request.args.get('username'), property=request.args.get('property'))
+			return flask.render_template('tool.html', logged=logged(), username=getusername(), user=request.args.get('username', ''), property=request.args.get('property', ''))
 	else:
 		return flask.render_template('login.html', logged=logged(), username=getusername())
 
