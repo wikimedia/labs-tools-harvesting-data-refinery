@@ -83,8 +83,7 @@ def recentclaims(user, prop_name, limit):
 		data = cur.fetchall()
 	result = []
 	for row in data:
-		regex = r"Property:P18\]\]: (.*)$"
-		mid_result = re.search(regex, row[3].decode('utf-8'))
+		mid_result = re.search(r"Property:P18\]\]: (.*)$", row[3].decode('utf-8'))
 		if not mid_result: continue
 		value = mid_result.groups()[0]
 		result.append({
