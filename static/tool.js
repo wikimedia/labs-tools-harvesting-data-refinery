@@ -6,10 +6,12 @@ $( document ).ready(function() {
             user: $('input[name="username"]').val(),
             limit: $('input[name="username"]').val(),
         }).then(function(data) {
-            $('#values').html("");
+            $('#values').html('<div class="row">');
             for(var i = 0; i < data.length; i++) {
+                if(i < 0 && i % 4 == 0) $('#values').append('</div><div class="row">');
                 $('#values').append('<div class="value" id="value-' + data[i].rev_id + '" data-rev-id="' + data[i].rev_id + '">' + data[i].html + '</div>');
             }
+            $('#values').append('</div>');
             $('.value').click(function() {
                 $.getJSON('api-revert', {
                     rev_id: $( this ).attr('data-rev-id')
