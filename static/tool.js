@@ -4,7 +4,7 @@ $( document ).ready(function() {
         $.getJSON('api-to-review', {
             property: $('input[name="property"]').val(),
             user: $('input[name="username"]').val(),
-            limit: $('#limit').val(),
+            limit: $('input[name="username"]').val(),
         }).then(function(data) {
             $('#values').html("");
             for(var i = 0; i < data.length; i++) {
