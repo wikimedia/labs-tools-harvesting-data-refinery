@@ -9,6 +9,12 @@
     <form id="configuration">
         <input type="text" name="username" value="{{user}}" placeholder="Aktron" required>
         <input type="text" name="property" value="{{property}}" placeholder="P18, P37, etc." required>
+        <select name="limit" id="limit">
+            <option selected>10</option>
+            <option>30</option>
+            <option>50</option>
+            <option>100</option>
+        </select>
         <button type="submit" class="btn wafes-effect wafes-light" type="button" id="load">Load values</button>
     </form>
     <div id="values">
