@@ -159,7 +159,8 @@ def revert():
 	return jsonify({
 		'status': 'ok',
 		'message': 'reverted',
-		'rev_id': rev_id
+		'rev_id': rev_id,
+		"response": r.json(),
 	})
 
 def get_auth():
