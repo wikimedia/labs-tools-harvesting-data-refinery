@@ -7,9 +7,12 @@
 {% block body %}
 <div class="container">
     <form id="configuration">
-        <input type="text" name="username" value="{{user}}" placeholder="Aktron" required>
-        <input type="text" name="property" value="{{property}}" placeholder="P18, P37, etc." required>
-        <input type="number" name="limit" value="{{limit}}" placeholder="How many items should we load?" required>
+        <label for="username">User you want to examine (mandatory)</label>
+        <input type="text" id="username" name="username" value="{{user}}" placeholder="Aktron" required>
+        <label for="property">Which property do you want to clean?</label>
+        <input type="text" id="property" name="property" value="{{property}}" placeholder="P18, P37, etc." required>
+        <label for="limit">How many items should we load?</label>
+        <input type="number" id="limit" name="limit" value="{{limit}}" placeholder="How many items should we load?" required>
         <button type="submit" class="btn wafes-effect wafes-light" type="button" id="load">Load values</button>
     </form>
     <div id="values">
