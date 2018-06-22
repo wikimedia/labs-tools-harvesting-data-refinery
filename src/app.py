@@ -135,7 +135,7 @@ def toreview():
 @app.route('/api-revert')
 def revert():
 	conn = toolforge.connect('wikidatawiki')
-	rev_id = request.arg.get('rev_id')
+	rev_id = request.args.get('rev_id')
 	with conn.cursor() as cur:
 		cur.execute('select rev_page from revision where rev_id=%s', rev_id)
 	rev_page = cur.fetchall()[0][0]
@@ -152,7 +152,7 @@ def revert():
 		"action": "edit",
 		"format": "json",
 		"pageid": rev_page,
-		"undo": request.arg.get('rev_id'),
+		"undo": request.args.get('rev_id'),
 		"token": token
 	}
 	r = requests.post(app.config['API_MWURI'], data=payload)
