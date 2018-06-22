@@ -146,7 +146,7 @@ def revert():
 		"meta": "tokens",
 		"type": "csrf"
 	}
-	r = requests.get(app.config['API_MWURI'], params=payload)
+	r = requests.get(app.config['API_MWURI'], params=payload, auth=get_auth())
 	token = r.json()['query']['tokens']['csrftoken']
 	payload = {
 		"action": "edit",
@@ -155,7 +155,7 @@ def revert():
 		"undo": request.args.get('rev_id'),
 		"token": token
 	}
-	r = requests.post(app.config['API_MWURI'], data=payload)
+	r = requests.post(app.config['API_MWURI'], data=payload, auth=get_auth())
 	return jsonify({
 		'status': 'ok',
 		'message': 'reverted',
