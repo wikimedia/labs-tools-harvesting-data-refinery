@@ -10,7 +10,11 @@ $( document ).ready(function() {
                 $('#values').append('<div class="value" id="value-' + data[i].rev_id + '" data-rev-id="' + data[i].rev_id + '">' + data[i].html + '</div>');
             }
             $('.value').click(function() {
-                console.log($( this ).attr('data-rev-id'));
+                $.getJSON('api-revert', {
+                    rev_id: $( this ).attr('data-rev-id')
+                }).then(function(data) {
+                    alert("Reverted");
+                });
             });
         });
     });
