@@ -132,6 +132,42 @@ def toreview():
 			}), 400)
 	return jsonify(result)
 
+@app.route('/api-revert')
+def revert():
+	conn = toolforge.connect('wikidatawiki')
+	rev_id = request.arg.get('rev_id')
+	with conn.cursor() as cur:
+		cur.execute('select rev_page from revision where rev_id=%s', rev_id)
+	rev_page = cur.fetchall()[0][0]
+
+	payload = {
+		"action": "query",
+		"format": "json",
+		"meta": "tokens",
+		"type": "csrf"
+	}
+	r = requests.get(app.config['API_MWURI'], params=payload)
+	token = r.json()['query']['tokens']['csrftoken']
+	payload = {
+		"action": "edit",
+		"format": "json",
+		"pageid": rev_page,
+		"undo": request.arg.get('rev_id'),
+		"token": token
+	}
+	r = requests.post(app.config['API_MWURI'], data=payload)
+	return jsonify({
+		'status': 'ok',
+		'message': 'reverted',
+		'rev_id': rev_id
+	})
+
+def get_auth():
+	request_token_secret = flask.session.get('request_token_secret', None)
+	request_token_key = flask.session.get('request_token_key', None)
+	auth = OAuth1(key, secret, request_token_key, request_token_secret)
+	return auth
+
 def logged():
 	return flask.session.get('username') != None
 
